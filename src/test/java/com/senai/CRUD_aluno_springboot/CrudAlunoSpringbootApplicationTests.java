@@ -1,4 +1,4 @@
-package com.example.CRUD_aluno_springboot;
+package com.senai.CRUD_aluno_springboot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
