@@ -35,8 +35,15 @@ public class AlunoService {
     }
 
     public AlunoDTO salvarAluno(AlunoDTO dto) {
-        Optional<Curso> cursoOpt = cursoRepository.findById(dto.idCurso());
-        Aluno entidade = dto.toEntity(cursoOpt.get());
+        Curso curso = null;
+        if (dto.idCurso() != null) {
+            Optional<Curso> cursoOpt = cursoRepository.findById(dto.idCurso());
+            if (cursoOpt.isPresent()) {
+                curso = cursoOpt.get();
+            }
+            // ou simplesmente: curso = cursoOpt.orElse(null);
+        }
+        Aluno entidade = dto.toEntity(curso);
         Aluno salvo = alunoRepository.save(entidade);
         return AlunoDTO.fromEntity(salvo);
     }
