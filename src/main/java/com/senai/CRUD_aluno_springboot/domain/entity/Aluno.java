@@ -1,33 +1,20 @@
 package com.senai.CRUD_aluno_springboot.domain.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Aluno {
+public class Aluno extends Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String turma;
 
-    private int idAcesso;
-
-    @Column(nullable = false, length = 14)
-    private String CPF;
-
-    @NotBlank(message = "O nome do aluno não pode estar vazio")
-    @Column(nullable = false, length = 100)
-    private String nome;
-
-    @Column(length = 100)
-    private String email;
-
-    @Column(length = 50)
-    private String curso;
+    @ManyToOne
+    @JoinColumn(name = "curso_id")
+    private Curso curso;
 }
