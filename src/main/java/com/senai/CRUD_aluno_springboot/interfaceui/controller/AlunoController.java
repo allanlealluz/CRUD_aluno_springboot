@@ -1,7 +1,7 @@
-package com.senai.CRUD_aluno_springboot.controller;
+package com.senai.CRUD_aluno_springboot.interfaceui.controller;
 
-import com.senai.CRUD_aluno_springboot.model.Aluno;
-import com.senai.CRUD_aluno_springboot.model.AlunoRepository;
+import com.senai.CRUD_aluno_springboot.domain.entity.Aluno;
+import com.senai.CRUD_aluno_springboot.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

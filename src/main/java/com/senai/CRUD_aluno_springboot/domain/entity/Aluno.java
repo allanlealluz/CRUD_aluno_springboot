@@ -1,4 +1,4 @@
-package com.senai.CRUD_aluno_springboot.model;
+package com.senai.CRUD_aluno_springboot.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
