@@ -4,125 +4,140 @@
     <meta charset="UTF-8" />
     <title>Projeto Escola - CRUD Básico</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./style.css" />
+    <!-- Bootstrap (mantém a compatibilidade funcional) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Seu CSS personalizado (substitua style.css) -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="container">
-    <h1>Projeto Escola — CRUD Básico</h1>
+<div class="container py-5">
+    <h1 class="text-center mb-4">Projeto Escola — CRUD Básico</h1>
 
-    <section class="card">
-        <h2>Cadastro de Curso</h2>
+    <section class="card p-4">
+        <h2 class="h5 mb-3">Cadastro de Curso</h2>
         <form id="cursoForm">
-            <div class="row">
-                <label>
+            <div class="row g-3">
+                <label class="flex-grow-1">
                     Título
-                    <input id="cursoTitulo" placeholder="Ex.: Programação Java" required />
+                    <input id="cursoTitulo" class="form-control" placeholder="Ex.: Programação Java" required />
                 </label>
-                <label>
+                <label class="flex-grow-1">
                     Carga Horária
-                    <input id="cursoCarga" type="number" min="1" step="1" placeholder="Ex.: 120" required />
+                    <input id="cursoCarga" class="form-control" type="number" min="1" step="1" placeholder="Ex.: 120" required />
                 </label>
             </div>
-            <div class="actions">
-                <button type="submit" id="btnCursoSubmit">Cadastrar Curso</button>
-                <button type="button" id="btnCursoCancelar" class="muted hidden">Cancelar edição</button>
+            <div class="actions mt-3 d-flex gap-2">
+                <button type="submit" id="btnCursoSubmit" class="btn btn-primary">Cadastrar Curso</button>
+                <button type="button" id="btnCursoCancelar" class="btn btn-secondary muted hidden">Cancelar edição</button>
             </div>
         </form>
 
-        <h3>Cursos Cadastrados</h3>
-        <table class="table" id="cursoTable">
-            <thead>
-            <tr>
-                <th>Título</th>
-                <th>Carga Horária</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody><!-- linhas geradas via JS --></tbody>
-        </table>
+        <h3 class="mt-4">Cursos Cadastrados</h3>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle" id="cursoTable">
+                <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Carga Horária</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody><!-- linhas geradas via JS --></tbody>
+            </table>
+        </div>
     </section>
 
-    <section class="card">
-        <h2>Cadastro de Usuário</h2>
+    <section class="card p-4">
+        <h2 class="h5 mb-3">Cadastro de Usuário</h2>
         <form id="usuarioForm">
-            <div class="row">
-                <label>
+            <div class="row g-3">
+                <label class="flex-grow-1">
                     Nome
-                    <input id="userNome" placeholder="Ex.: Maria Silva" required />
+                    <input id="userNome" class="form-control" placeholder="Ex.: Maria Silva" required />
                 </label>
-                <label>
+                <label class="flex-grow-1">
                     CPF (apenas números)
-                    <input id="userCpf" inputmode="numeric" placeholder="Ex.: 12345678900" required />
+                    <input id="userCpf" class="form-control" inputmode="numeric" placeholder="Ex.: 12345678900" required />
                 </label>
             </div>
-            <div class="row">
-                <label>
+            <div class="row g-3 mt-2">
+                <label class="flex-grow-1">
                     Tipo de Usuário
-                    <select id="userTipo" required>
+                    <select id="userTipo" class="form-select" required>
                         <option value="">-- selecione --</option>
                         <option value="ALUNO">Aluno</option>
                         <option value="PROFESSOR">Professor</option>
                     </select>
                 </label>
-                <label id="boxTurma" class="hidden">
+                <!-- Mantive id="boxTurma" e a classe hidden para seu JS -->
+                <label id="boxTurma" class="hidden flex-grow-1">
                     Turma (Aluno)
-                    <input id="userTurma" placeholder="Ex.: 1A" />
+                    <input id="userTurma" class="form-control" placeholder="Ex.: 1A" />
                 </label>
             </div>
-            <div class="row" id="rowAluno" class="hidden">
-                <label>
+
+            <!-- Mantive ids e classes originais (rowAluno / rowProfessor) -->
+            <div class="row g-3 mt-2" id="rowAluno">
+                <label class="flex-grow-1">
                     Curso (Aluno)
-                    <select id="userCurso">
+                    <select id="userCurso" class="form-select">
                         <option value="">-- selecione --</option>
                     </select>
                 </label>
             </div>
-            <div class="row hidden" id="rowProfessor">
-                <label>
+
+            <div class="row g-3 mt-2 hidden" id="rowProfessor">
+                <label class="flex-grow-1">
                     Turmas (Professor) — separadas por vírgula
-                    <input id="userTurmas" placeholder="Ex.: 1A, 2B" />
+                    <input id="userTurmas" class="form-control" placeholder="Ex.: 1A, 2B" />
                 </label>
-                <label>
+                <label class="flex-grow-1">
                     Disciplinas (Professor) — separadas por vírgula
-                    <input id="userDisciplinas" placeholder="Ex.: Matemática, Algoritmos" />
+                    <input id="userDisciplinas" class="form-control" placeholder="Ex.: Matemática, Algoritmos" />
                 </label>
             </div>
-            <div class="actions">
-                <button type="submit" id="btnUsuarioSubmit">Cadastrar Usuário</button>
-                <button type="button" id="btnUsuarioCancelar" class="muted hidden">Cancelar edição</button>
+
+            <div class="actions mt-3 d-flex gap-2">
+                <button type="submit" id="btnUsuarioSubmit" class="btn btn-primary">Cadastrar Usuário</button>
+                <button type="button" id="btnUsuarioCancelar" class="btn btn-secondary muted hidden">Cancelar edição</button>
             </div>
         </form>
 
-        <h3>Alunos</h3>
-        <table class="table" id="alunoTable">
-            <thead>
-            <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Turma</th>
-                <th>Curso (id)</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody><!-- linhas geradas via JS --></tbody>
-        </table>
+        <h3 class="mt-4">Alunos</h3>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle" id="alunoTable">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Turma</th>
+                    <th>Curso (id)</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody><!-- linhas geradas via JS --></tbody>
+            </table>
+        </div>
 
-        <h3>Professores</h3>
-        <table class="table" id="profTable">
-            <thead>
-            <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Turmas</th>
-                <th>Disciplinas</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody><!-- linhas geradas via JS --></tbody>
-        </table>
+        <h3 class="mt-4">Professores</h3>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle" id="profTable">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Turmas</th>
+                    <th>Disciplinas</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody><!-- linhas geradas via JS --></tbody>
+            </table>
+        </div>
     </section>
 </div>
 
+<!-- mantenha seu script.js exatamente como está -->
 <script src="script.js"></script>
 </body>
 </html>

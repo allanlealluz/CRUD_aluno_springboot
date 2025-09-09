@@ -9,14 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
+@Transactional
 public class ProfessorService {
-    @Autowired
-    ProfessorRepository professorRepository;
-    @Autowired
-    CursoRepository cursoRepository;
+
+    private final ProfessorRepository professorRepository;
+
+    public ProfessorService(ProfessorRepository professorRepository) {
+        this.professorRepository = professorRepository;
+    }
 
     @Transactional(readOnly = true)
     public List<ProfessorDTO> listarProfessores() {
@@ -27,27 +31,25 @@ public class ProfessorService {
     }
 
     @Transactional(readOnly = true)
-    public ProfessorDTO buscarAlunoPorId(String id) {
-        return professorRepository.findById(id)
-                .map(ProfessorDTO::fromEntity)
-                .orElse(null);
+    public ProfessorDTO buscarProfessorPorId(String id) {
+        Professor professor = professorRepository.findById(id).orElse(null);
+        return ProfessorDTO.fromEntity(professor);
     }
 
     public ProfessorDTO salvarProfessor(ProfessorDTO dto) {
-        Curso curso = null;
-        Professor entidade = dto.toEntity(curso);
+        Professor entidade = dto.toEntity();
         Professor salvo = professorRepository.save(entidade);
         return ProfessorDTO.fromEntity(salvo);
     }
 
     public ProfessorDTO atualizarProfessor(String id, ProfessorDTO dto) {
-        Optional<Professor> alunoExistenteOpt = professorRepository.findById(id);
-        if (alunoExistenteOpt.isEmpty()) return null;
+        Professor existente = professorRepository.findById(id).orElse(null);
 
-        Professor existente = alunoExistenteOpt.get();
         existente.setNome(dto.nome());
         existente.setCpf(dto.cpf());
         existente.setTipo("Professor");
+        existente.setTurmas(new ArrayList<>(dto.turmas()));
+        existente.setDisciplinas(new ArrayList<>(dto.disciplinas()));
 
         Professor atualizado = professorRepository.save(existente);
         return ProfessorDTO.fromEntity(atualizado);

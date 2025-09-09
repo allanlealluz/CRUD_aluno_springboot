@@ -10,30 +10,34 @@ import java.util.List;
 @RequestMapping("/professor")
 public class ProfessorController {
 
-    @Autowired
-    ProfessorService professorService;
+    private final ProfessorService professorService;
+
+    public ProfessorController(ProfessorService professorService) {
+        this.professorService = professorService;
+    }
 
     @GetMapping
-    public List<ProfessorDTO> listarProfessores(){
+    public List<ProfessorDTO> listarProfessores() {
         return professorService.listarProfessores();
     }
 
     @GetMapping("/{id}")
-    public ProfessorDTO buscarAluno(@PathVariable String id){
-        return professorService.buscarAlunoPorId(id);
+    public ProfessorDTO buscarProfessor(@PathVariable String id) {
+        return professorService.buscarProfessorPorId(id);
     }
 
     @PostMapping
-    public ProfessorDTO salvarProfessor(@RequestBody ProfessorDTO professorDTO){
-        return professorService.salvarProfessor(professorDTO);
+    public ProfessorDTO salvarProfessor(@RequestBody ProfessorDTO dto) {
+        return professorService.salvarProfessor(dto);
     }
 
     @PutMapping("/{id}")
-    public ProfessorDTO editarProfessor(@PathVariable String id , @RequestBody ProfessorDTO professorDTO){
-        return professorService.atualizarProfessor(id,professorDTO);
+    public ProfessorDTO atualizarProfessor(@PathVariable String id, @RequestBody ProfessorDTO dto) {
+        return professorService.atualizarProfessor(id, dto);
     }
+
     @DeleteMapping("/{id}")
-    public void deletararProfessor(@PathVariable String id){
+    public void deletarProfessor(@PathVariable String id) {
         professorService.deletarProfessor(id);
     }
 }
